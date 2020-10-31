@@ -7,6 +7,18 @@ This simple repo illustrates the basic steps to create your [Github](github.com)
 
 ### Get SSH Access
 - [Generate your SSH key](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent); if you alrady have SSH keys in default folder, change name to the key or change location
+
+### Add your SSH key to the ssh-agent
+- enter `$ eval "$(ssh-agent -s)"`to start the ssh-agent in the background
+- if the file `~/.ssh/config` does not exist, create it empty by entering `$ touch ~/.ssh/config`
+- add to the file the following or modify its contents according to your ssh folder location and key name: 
+  `$ Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/id_rsa`
+-Add your SSH private key to the ssh-agent and store your passphrase in the keychain: `$ ssh-add -K ~/.ssh/id_rsa`, using the correct path and name.
+
+### Add your SSH Key to your Github Account
 - [Add the new SSH key to your Github Account](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account)
 - On your Mac, open **"Keychain access"** and check if you already have entries for "github" (use search): delete them in case
 - [Test your connection](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/testing-your-ssh-connection)
