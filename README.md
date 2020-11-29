@@ -1,12 +1,12 @@
 This simple repo illustrates the basic steps to create your [Github](github.com) account and your first repo.
 
 ### Create Your Github Account
-- Set your unsername and password
+- Set your username and password
 - Enable MFA by selecting [your account security menu] (https://github.com/settings/security) - optional but recommended
-- By using MFA, I recommend to use SSH to sync your local repos remotely on Gihub, as I had issues with HTTPS
+- By using MFA, I recommend using SSH to sync your local repos remotely on Github, as I had issues with HTTPS
 
 ### Get SSH Access
-- [Generate your SSH key](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent); if you alrady have SSH keys in default folder, change name to the key or change location
+- [Generate your SSH key](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent); if you already have SSH keys in the default folder, change the name to the key or change location
 
 ### Add your SSH key to the ssh-agent
 - enter `$ eval "$(ssh-agent -s)"`to start the ssh-agent in the background
@@ -23,10 +23,52 @@ This simple repo illustrates the basic steps to create your [Github](github.com)
 - On your Mac, open **"Keychain access"** and check if you already have entries for "github" (use search): delete them in case
 - [Test your connection](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/testing-your-ssh-connection)
 
+### Sign Your Commits
+
+#### Create PGP Key to encrypt the IAM USer Access Key
+
+Install GPG with `brew install gnupg` or update it with `brew upgrade gnupg`.
+
+Create your [PGP Key](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/generating-a-new-gpg-key).
+
+You need an RSA 4096 key. Add your username and email.
+
+After creation, launch the command `gpg --list-secret-keys --keyid-format LONG`, to check your newly created key. 
+
+#### Import you GPG Key from Keybase
+
+The above command can be used also in case you already generated your key.
+
+In case you've uploaded your GPG key on [keybase](keybase.io), you can import your public key a txt by launching the command `keybase pgp export | gpg --import`.
+
+#### Export your PGP Public Key and Add it to GitHub
+
+After, you need to export your public key, by launching the command `gpg --armor --export youremail@email.com` matching your email address with the one used to create the GPG key.
+
+If you can't remember what email address is attached to your public key, you can list all your gpg keys with `gpg --list-keys`. See this [well-explained article](https://www.elliotblackburn.com/importing-pgp-keys-from-keybase-into-gpg/). 
+
+Now you can copy and paste the output and copy into GitHub, by selecting the "settings" option within your profile and add the GPG Key.
+
+#### Use The Key to Sign Your Commits
+
+On your local repo, you need to add the following information:
+
+- username, by launching the command `git config --global user.name "your_username"`
+- signkey, by launching the command `git config --global user.signingkey your_ Key_ID`
+- email, by launching the command `git config --global user.email "your_email_address"`, matching the address used for your GPG key.
+
+Once you commit, locally, use `git commit -S -m your commit message`.
+
 ### Create Your First Repo
 - Create a new repository on Github; you can decide if making it public (default) or private
 - Enter `$ git clone <your repo ssh name>`
 - Enter `$ cd <your repo name>`
 - Enter `$ git config user.name "your username"`
-- Type `$ git config --global user.email "your email address"`; be sure to use your [primary or added email address](https://github.com/settings/emails)
-- Start coding locally, commit locally often and when you want to sync your remote repo enter `$ git push origin master`.
+- Enter `git config --global user.signingkey your_ Key_ID`, to add your signkey
+- Type `$ git config --global user.email "your email address"`; be sure to use your [primary or added email address](https://github.com/settings/emails), which needs to match the email used to generate your GPG key, too
+- Start coding locally, commit locally often and when you want to sync your remote repo enter `$ git push origin master`
+- Check on your commits on Github: you should see "verified".
+
+## Documentation
+
+- [Github - Managing commit signature verification](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/managing-commit-signature-verification)
