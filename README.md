@@ -1,4 +1,4 @@
-This simple repo illustrates the basic steps to create your [Github](github.com) account and your first repo.
+This simple README illustrates the basic steps to create your [Github](github.com) account and your first repo, with GPG integrated features.
 
 ### Create Your Github Account
 - Set your username and password
