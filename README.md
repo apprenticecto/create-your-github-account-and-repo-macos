@@ -77,7 +77,7 @@ error: gpg failed to sign the data
 fatal: failed to write commit object
 ```
 
-Enter `echo 'no-tty' >> ~/.gnupg/gpg.conf` and `export GPG_TTY=$(tty)` to apply change to all users.
+Enter `echo 'no-tty' >> ~/.gnupg/gpg.conf` and then `export GPG_TTY=$(tty)` to apply change to all users.
 
 See [this stackoverflow thread](https://stackoverflow.com/questions/39494631/gpg-failed-to-sign-the-data-fatal-failed-to-write-commit-object-git-2-10-0) for more information and cases.
 
