@@ -57,7 +57,7 @@ On your local repo, you need to add the following information:
 - signkey, by launching the command `git config --global user.signingkey your_ Key_ID`
 - email, by launching the command `git config --global user.email "your_email_address"`, matching the address used for your GPG key.
 
-Once you commit, locally, use `git commit -S -m your commit message`.
+Once you commit, locally, use `git commit -S -m your commit message`, unless auto-sign command has been entered (see below).
 
 ### Create Your First Repo
 - Create a new repository on Github; you can decide if making it public (default) or private
@@ -66,8 +66,26 @@ Once you commit, locally, use `git commit -S -m your commit message`.
 - Enter `$ git config user.name "your username"`
 - Enter `git config --global user.signingkey your_ Key_ID`, to add your signkey
 - Type `$ git config --global user.email "your email address"`; be sure to use your [primary or added email address](https://github.com/settings/emails), which needs to match the email used to generate your GPG key, too
+- Add `git config --global commit.gpgsign true` to auto-sign iwht your key each commit
 - Start coding locally, commit locally often and when you want to sync your remote repo enter `$ git push origin master`
 - Check on your commits on Github: you should see "verified".
+
+### Troublehooting
+In case you should get this message after a commit:
+```
+error: gpg failed to sign the data
+fatal: failed to write commit object
+```
+
+Edit `~/.bashrc` and enter:
+```
+GPG_TTY=$(tty)
+export GPG_TTY
+```
+
+Save & exit.
+
+See [this stackoverflow thread](https://stackoverflow.com/questions/39494631/gpg-failed-to-sign-the-data-fatal-failed-to-write-commit-object-git-2-10-0) for more information and cases.
 
 ## Documentation
 
