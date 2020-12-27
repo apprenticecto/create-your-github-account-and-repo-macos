@@ -25,7 +25,7 @@ This simple README illustrates the basic steps to create your [Github](github.co
 
 ### Sign Your Commits
 
-#### Create PGP Key to encrypt the IAM USer Access Key
+#### Create your PGP Key
 
 Install GPG with `brew install gnupg` or update it with `brew upgrade gnupg`.
 
